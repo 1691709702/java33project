@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="ctx" class="container">
+			<div class="form-horizontal">
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">学员选择:</label>
+			    <div class="col-sm-3">
+			     	<select class="form-control" v-model="sId" @change="findById">
+			     		<option value="0">请选择</option>
+			     		<option v-for="item in students" :value="item.studentno">{{item.name}}</option>
+			     	</select>
+			    </div>
+			  </div>
+			  <div v-if="open">
+				  <div class="form-group" >
+				    <label class="col-sm-2 control-label">专业:</label>
+				    <div class="col-sm-4">
+				     	<input class="form-control" id="inputEmail3" v-model="stu.pro.pname" disabled="disabled">
+				    </div>
+				  </div>
+			  </div>
+			  <div v-if="open">
+			  	<div class="form-group">
+			  		<label class="col-sm-2 control-label">考试成绩:</label>
+			  	</div>
+				  <div class="form-group" v-for="item in stu.cou">
+				    <label class="col-sm-2 control-label">{{item.cname}}:</label>
+				    <div class="col-sm-4">
+				     	<input class="form-control" id="inputEmail3" v-model="item.results">
+				    </div>
+				  </div>
+				   <div class="form-group" >
+				    <label class="col-sm-2 control-label">考试时间:</label>
+				    <div class="col-sm-4">
+				     	<input class="form-control" id="inputEmail3" v-model="date">
+				    </div>
+				  </div>
+				 <button type="button" class="btn btn-info" @click="create">保存</button>	
+			  </div>
+		 	</div>
+		 </div> 
+	</div>
+	<script type="text/javascript" th:src="@{/js/jquery-1.12.4.js}"></script>
+	<script type="text/javascript" th:src="@{/js/vue.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<script type="text/javascript">
+		var vm=new Vue({
+			el:"#ctx",
+			data(){
+				return {
+					students:[],
+					open:false,
+					sId:"0",
+					stu:{},
+					res:[],
+					pro:{},
+					date:"",
+				}
+			},
+			methods:{
+				toFind(){
+					var that=this;
+					$.ajax({
+						url:"[[@{/stu/find}]]",
+						success:function(res){
+							that.students=res;
+						}
+					});
+				},
+				findById(){
+					var that=this;
+					alert(that.sId);
+					if(that.sId==0){
+						return;
+					}
+					$.ajax({
+						url:"[[@{/stu/findById}]]",
+						data:{
+							sid:that.sId
+						},
+						success:function(res){
+							that.open=true;
+							that.stu=res;
+							that.pro=that.stu.pro;
+						}
+					});
+				},
+				create(){
+					var that=this;
+					for(var i=0;i<this.stu.cou.length;i++){
+						var res={sid:this.sId,cid:this.stu.cou[i].cid,date:this.date,results:this.stu.cou[i].results};
+						this.res.push(res);
+					}
+					that.pro.res=this.res;
+					var str=JSON.stringify(that.pro);
+					$.ajax({
+						url:"[[@{/stu/create}]]",
+						data:str,
+						type:"post",
+						contentType:"application/json;charset=utf-8",
+						success:function(res){
+							alert("成功！");
+						}
+					});	
+				}
+			},
+			created(){
+				this.toFind();
+			}
+			
+		});
+	</script>
+</body>
+</html>

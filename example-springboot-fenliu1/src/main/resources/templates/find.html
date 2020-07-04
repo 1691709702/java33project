@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="ctx" class="container">
+		<table class="table table-bordered">
+			<tr>
+				<td style="color:#999;background-color:#f4f4f4">厂商</td>
+				<td v-for="item in jiben">
+					{{item.changshang}}
+				</td>
+			</tr>
+			<tr>
+				<td style="color:#999;background-color:#f4f4f4">车身结构</td>
+				<td v-for="item in jiben">
+					{{item.jiegou}}
+				</td>
+			</tr>
+			<tr>
+				<td style="color:#999;background-color:#f4f4f4">长*宽*高(mm)</td>
+				<td v-for="item in jiben">
+					{{item.chang}}
+				</td>
+			</tr>
+			<tr>
+				<td style="color:#999;background-color:#f4f4f4">发动机</td>
+				<td v-for="item in jiben">
+					{{item.fadongji}}
+				</td>
+			</tr>
+			<tr>
+				<td style="color:#999;background-color:#f4f4f4">变速箱</td>
+				<td v-for="item in jiben">
+					{{item.biansuxiang}}
+				</td>
+			</tr>
+			<tr>
+				<td style="color:#999;background-color:#f4f4f4">最高车速(Km/h)</td>
+				<td v-for="item in jiben">
+					{{item.zuigaochesu}}
+				</td>
+			</tr>
+			<tr>
+				<td style="color:#999;background-color:#f4f4f4">官方0—100加速时间(s..</td>
+				<td v-for="item in jiben">
+					{{item.jiasushijian}}
+				</td>
+			</tr>
+			<tr>
+				<td style="color:#999;background-color:#f4f4f4">官方油耗(L)</td>
+				<td v-for="item in jiben">
+					{{item.youhao}}
+				</td>
+			</tr>
+			<tr>
+				<td style="color:#999;background-color:#f4f4f4">整车保修期限</td>
+				<td v-for="item in jiben">
+					{{item.baoxiuqixian}}
+				</td>
+			</tr>
+			<tr>
+				<td style="color:#999;background-color:#f4f4f4">动力类型</td>
+				<td v-for="item in jiben">
+					{{item.leixing}}
+				</td>
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript" th:src="@{/js/jquery-1.12.4.js}"></script>
+	<script type="text/javascript" th:src="@{/js/vue.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+	<script type="text/javascript">
+		var vm=new Vue({
+			el:"#ctx",
+			data(){
+				return {
+					jiben:[]
+				}
+			},
+			methods:{
+				toFind(){
+					var that=this;
+					$.ajax({
+						url:"[[@{/find}]]",
+						success:function(res){
+							that.jiben=res;
+						}
+					});
+				}
+			},
+			created(){
+				this.toFind();
+			}
+		});
+	</script>
+</body>
+</html>

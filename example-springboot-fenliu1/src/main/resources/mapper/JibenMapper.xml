@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.JibenMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.domain.Jiben" >
+    <result column="changshang" property="changshang" jdbcType="VARCHAR" />
+    <result column="jiegou" property="jiegou" jdbcType="VARCHAR" />
+    <result column="chang" property="chang" jdbcType="VARCHAR" />
+    <result column="fadongji" property="fadongji" jdbcType="VARCHAR" />
+    <result column="biansuxiang" property="biansuxiang" jdbcType="VARCHAR" />
+    <result column="zuigaochesu" property="zuigaochesu" jdbcType="VARCHAR" />
+    <result column="jiasushijian" property="jiasushijian" jdbcType="VARCHAR" />
+    <result column="youhao" property="youhao" jdbcType="VARCHAR" />
+    <result column="baoxiuqixian" property="baoxiuqixian" jdbcType="VARCHAR" />
+    <result column="leixing" property="leixing" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    changshang, jiegou, chang, fadongji, biansuxiang, zuigaochesu, jiasushijian, youhao, 
+    baoxiuqixian, leixing
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.domain.JibenExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from jiben
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.accp.domain.JibenExample" >
+    delete from jiben
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.domain.Jiben" >
+    insert into jiben (changshang, jiegou, chang, 
+      fadongji, biansuxiang, zuigaochesu, 
+      jiasushijian, youhao, baoxiuqixian, 
+      leixing)
+    values (#{changshang,jdbcType=VARCHAR}, #{jiegou,jdbcType=VARCHAR}, #{chang,jdbcType=VARCHAR}, 
+      #{fadongji,jdbcType=VARCHAR}, #{biansuxiang,jdbcType=VARCHAR}, #{zuigaochesu,jdbcType=VARCHAR}, 
+      #{jiasushijian,jdbcType=VARCHAR}, #{youhao,jdbcType=VARCHAR}, #{baoxiuqixian,jdbcType=VARCHAR}, 
+      #{leixing,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.domain.Jiben" >
+    insert into jiben
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="changshang != null" >
+        changshang,
+      </if>
+      <if test="jiegou != null" >
+        jiegou,
+      </if>
+      <if test="chang != null" >
+        chang,
+      </if>
+      <if test="fadongji != null" >
+        fadongji,
+      </if>
+      <if test="biansuxiang != null" >
+        biansuxiang,
+      </if>
+      <if test="zuigaochesu != null" >
+        zuigaochesu,
+      </if>
+      <if test="jiasushijian != null" >
+        jiasushijian,
+      </if>
+      <if test="youhao != null" >
+        youhao,
+      </if>
+      <if test="baoxiuqixian != null" >
+        baoxiuqixian,
+      </if>
+      <if test="leixing != null" >
+        leixing,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="changshang != null" >
+        #{changshang,jdbcType=VARCHAR},
+      </if>
+      <if test="jiegou != null" >
+        #{jiegou,jdbcType=VARCHAR},
+      </if>
+      <if test="chang != null" >
+        #{chang,jdbcType=VARCHAR},
+      </if>
+      <if test="fadongji != null" >
+        #{fadongji,jdbcType=VARCHAR},
+      </if>
+      <if test="biansuxiang != null" >
+        #{biansuxiang,jdbcType=VARCHAR},
+      </if>
+      <if test="zuigaochesu != null" >
+        #{zuigaochesu,jdbcType=VARCHAR},
+      </if>
+      <if test="jiasushijian != null" >
+        #{jiasushijian,jdbcType=VARCHAR},
+      </if>
+      <if test="youhao != null" >
+        #{youhao,jdbcType=VARCHAR},
+      </if>
+      <if test="baoxiuqixian != null" >
+        #{baoxiuqixian,jdbcType=VARCHAR},
+      </if>
+      <if test="leixing != null" >
+        #{leixing,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.domain.JibenExample" resultType="java.lang.Integer" >
+    select count(*) from jiben
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update jiben
+    <set >
+      <if test="record.changshang != null" >
+        changshang = #{record.changshang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiegou != null" >
+        jiegou = #{record.jiegou,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chang != null" >
+        chang = #{record.chang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fadongji != null" >
+        fadongji = #{record.fadongji,jdbcType=VARCHAR},
+      </if>
+      <if test="record.biansuxiang != null" >
+        biansuxiang = #{record.biansuxiang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zuigaochesu != null" >
+        zuigaochesu = #{record.zuigaochesu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiasushijian != null" >
+        jiasushijian = #{record.jiasushijian,jdbcType=VARCHAR},
+      </if>
+      <if test="record.youhao != null" >
+        youhao = #{record.youhao,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baoxiuqixian != null" >
+        baoxiuqixian = #{record.baoxiuqixian,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leixing != null" >
+        leixing = #{record.leixing,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update jiben
+    set changshang = #{record.changshang,jdbcType=VARCHAR},
+      jiegou = #{record.jiegou,jdbcType=VARCHAR},
+      chang = #{record.chang,jdbcType=VARCHAR},
+      fadongji = #{record.fadongji,jdbcType=VARCHAR},
+      biansuxiang = #{record.biansuxiang,jdbcType=VARCHAR},
+      zuigaochesu = #{record.zuigaochesu,jdbcType=VARCHAR},
+      jiasushijian = #{record.jiasushijian,jdbcType=VARCHAR},
+      youhao = #{record.youhao,jdbcType=VARCHAR},
+      baoxiuqixian = #{record.baoxiuqixian,jdbcType=VARCHAR},
+      leixing = #{record.leixing,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
